@@ -42,10 +42,28 @@ file7="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_uart1.c $INLCUDES -o build/CH57x_uar
 echo $file7
 $file7
 
+file8="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_int.c $INLCUDES -o build/CH57x_int.o $GCC_OPTIONS"
+echo $file8
+$file8
+
+file9="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_uart0.c $INLCUDES -o build/CH57x_uart0.o $GCC_OPTIONS"
+echo $file9
+$file9
+
+file10="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_uart2.c $INLCUDES -o build/CH57x_uart2.o $GCC_OPTIONS"
+echo $file10
+$file10
+
+file="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_uart3.c $INLCUDES -o build/CH57x_uart3.o $GCC_OPTIONS"
+echo $file
+$file
+
 linker="$TOOLCHAIN_GCC build/*.o -nostartfiles -Tch579.lds -Wl,--gc-sections -o output.elf  -Xlinker -Map=output.map"
 echo $linker
 $linker
 
 $TOOLCHAIN_OBJDUMP -S --disassemble output.elf > output.asm
+$TOOLCHAIN_OBJCOPY -O ihex output.elf output.hex
+$TOOLCHAIN_OBJCOPY -O binary output.elf output.bin
 
 $TOOLCHAIN_SIZE "output.elf"
