@@ -43,14 +43,7 @@ int main()
 	}
 }
 
-void Default_Handler(void)
+void general_Handler(void)
 {
-	while(1)
-	{
-		
-		mDelaymS(100);
-		GPIOB_SetBits( GPIO_Pin_0 ); 
-		mDelaymS(100);
-		GPIOB_ResetBits( GPIO_Pin_0 );
-	}
+
 }

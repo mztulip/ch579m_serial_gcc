@@ -1,3 +1,4 @@
+#include "CH57x_common.h"
 
 extern unsigned long _sidata;   
 extern unsigned long _sdata;   
@@ -9,8 +10,15 @@ extern unsigned long _estack;
 int main(void);
 
 
-static void Default_Handler(void) {
-  for (;;);
+void Default_Handler(void) {
+  while(1)
+	{
+		
+		mDelaymS(100);
+		GPIOB_SetBits( GPIO_Pin_0 ); 
+		mDelaymS(100);
+		GPIOB_ResetBits( GPIO_Pin_0 );
+	}
 }
 
 static void Reset_Handler(void) {
