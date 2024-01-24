@@ -3,36 +3,51 @@
 
 #include "CH57x_common.h"
 
+void write_serial(char *str)
+{
+  uint8_t i = 0;
+  const uint8_t limit = 100;
+  while(str[i]!=0 && i < limit)
+  {
+    UART1_SendString(&str[i],1);
+    i++;
+  }
+}
+
 int main()
 {       
 	SystemInit();
 	
 	/* PB0-LED */
-	GPIOB_ModeCfg( GPIO_Pin_0, GPIO_ModeOut_PP_20mA );
+	GPIOB_ModeCfg(GPIO_Pin_0, GPIO_ModeOut_PP_20mA);
 	GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);
+  GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);
 
-    UART1_DefInit();
-    UART1_BaudRateCfg(9600);
-    UART1_ByteTrigCfg(UART_1BYTE_TRIG);
-    UART1_INTCfg(TRUE, RB_IER_RECV_RDY);
-    NVIC_EnableIRQ(UART1_IRQn);
-    GPIOB_SetBits(GPIO_Pin_0);
 
-    UART1_SendString("a",1);
+  UART1_DefInit();
+  UART1_BaudRateCfg(9600);
+
+  write_serial("\n\rHello");
 
 	while(1)
 	{
 		
-		mDelaymS(1000);
+		mDelaymS(500);
 		GPIOB_SetBits( GPIO_Pin_0 ); 
-		mDelaymS(1000);
-		UART1_SendString("a",1);
+		mDelaymS(500);
+		UART1_SendString("*",1);
 		GPIOB_ResetBits( GPIO_Pin_0 );
 	}
 }
 
 void Default_Handler(void)
 {
-	while(1);
+	while(1)
+	{
+		
+		mDelaymS(100);
+		GPIOB_SetBits( GPIO_Pin_0 ); 
+		mDelaymS(100);
+		GPIOB_ResetBits( GPIO_Pin_0 );
+	}
 }
