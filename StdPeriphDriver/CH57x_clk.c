@@ -281,7 +281,7 @@ UINT32 GetSysClock( void )
 {
 	UINT16  rev;
 	
-	rev = R16_CLK_SYS_CFG & 0xff;		
+	rev = R16_CLK_SYS_CFG & 0xff;
 	if( (rev & RB_CLK_SYS_MOD) == (2<<6) ){				// 32M����Ƶ
 	    return (32000000);
 	}

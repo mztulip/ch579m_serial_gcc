@@ -14,7 +14,7 @@
 
 /*******************************************************************************
 * Function Name  : NMI_Handler
-* Description    : NMIÖÐ¶Ïº¯Êý
+* Description    : NMIï¿½Ð¶Ïºï¿½ï¿½ï¿½
 * Input          : None
 * Return         : None
 *******************************************************************************/
@@ -27,13 +27,13 @@ void NMI_Handler( void )
 		{
 		    R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 				R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-				R8_HFCK_PWR_CTRL |= RB_CLK_INT32M_PON;							// ´ò¿ªÄÚ²¿32M
+				R8_HFCK_PWR_CTRL |= RB_CLK_INT32M_PON;							// ï¿½ï¿½ï¿½Ú²ï¿½32M
 		}
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R16_CLK_SYS_CFG = 5;		        												// ½µÆµ HSI/5=6.4M
-    R16_POWER_PLAN &= ~(RB_PWR_DCDC_EN|RB_PWR_DCDC_PRE);		// ÅÔÂ· DC/DC 
-		R8_HFCK_PWR_CTRL |= RB_CLK_PLL_PON;											// ´ò¿ªPLL
+    R16_CLK_SYS_CFG = 5;		        												// ï¿½ï¿½Æµ HSI/5=6.4M
+    R16_POWER_PLAN &= ~(RB_PWR_DCDC_EN|RB_PWR_DCDC_PRE);		// ï¿½ï¿½Â· DC/DC 
+		R8_HFCK_PWR_CTRL |= RB_CLK_PLL_PON;											// ï¿½ï¿½PLL
 		R8_SAFE_ACCESS_SIG = 0;
    
     while(1)
@@ -42,7 +42,7 @@ void NMI_Handler( void )
         else i++;
         if( i>2000 )
 				{
-					/* Ö´ÐÐÏµÍ³¸´Î» */
+					/* Ö´ï¿½ï¿½ÏµÍ³ï¿½ï¿½Î» */
 					R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
 					R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 					R8_RST_WDOG_CTRL = RB_SOFTWARE_RESET;
@@ -53,8 +53,8 @@ void NMI_Handler( void )
 
 /*******************************************************************************
 * Function Name  : LowPower_Halt_1
-* Description    : µÍ¹¦ºÄ-Halt_1Ä£Ê½¡£
-                   ´ËµÍ¹¦ºÄÇÐµ½HSI/5Ê±ÖÓÔËÐÐ£¬»½ÐÑºóÐèÒªÓÃ»§×Ô¼ºÖØÐÂÑ¡ÔñÏµÍ³Ê±ÖÓÔ´
+* Description    : ï¿½Í¹ï¿½ï¿½ï¿½-Halt_1Ä£Ê½ï¿½ï¿½
+                   ï¿½ËµÍ¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½HSI/5Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½Òªï¿½Ã»ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Ô´
 * Input          : None
 * Return         : None
 *******************************************************************************/
@@ -65,32 +65,32 @@ void LowPower_Halt_1( void )
     
     x32Kpw = R8_XT32K_TUNE;
     x32Mpw = R8_XT32M_TUNE;
-    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%¶î¶¨µçÁ÷
-    if(R16_RTC_CNT_32K>0x3fff){     // ³¬¹ý500ms
-        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEÇý¶¯µçÁ÷½µµÍµ½¶î¶¨µçÁ÷
+    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
+    if(R16_RTC_CNT_32K>0x3fff){     // ï¿½ï¿½ï¿½ï¿½500ms
+        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
     }
     
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R8_SLP_POWER_CTRL &= ~RB_SLP_ROM_PWR_DN;		  // flash´ý»ú
-    R8_BAT_DET_CTRL = 0;                              // ¹Ø±ÕµçÑ¹¼à¿Ø
+    R8_SLP_POWER_CTRL &= ~RB_SLP_ROM_PWR_DN;		  // flashï¿½ï¿½ï¿½ï¿½
+    R8_BAT_DET_CTRL = 0;                              // ï¿½Ø±Õµï¿½Ñ¹ï¿½ï¿½ï¿½
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
-    R16_CLK_SYS_CFG = 5;		        // ½µÆµ HSI/5=6.4M
+    R16_CLK_SYS_CFG = 5;		        // ï¿½ï¿½Æµ HSI/5=6.4M
     R8_SAFE_ACCESS_SIG = 0;
         
     SCB -> SCR |= SCB_SCR_SLEEPDEEP_Msk;				//deep sleep
     __WFI();
     R8_SAFE_ACCESS_SIG = 0;
  
-    /* ¿ªÆôµçÑ¹¼à¿Ø */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ */
     PowerMonitor( ENABLE );    
 }
 
 /*******************************************************************************
 * Function Name  : LowPower_Halt_2
-* Description    : µÍ¹¦ºÄ-Halt_2Ä£Ê½¡£
-                   ´ËµÍ¹¦ºÄÇÐµ½HSI/5Ê±ÖÓÔËÐÐ£¬»½ÐÑºóÐèÒªÓÃ»§×Ô¼ºÖØÐÂÑ¡ÔñÏµÍ³Ê±ÖÓÔ´
+* Description    : ï¿½Í¹ï¿½ï¿½ï¿½-Halt_2Ä£Ê½ï¿½ï¿½
+                   ï¿½ËµÍ¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½HSI/5Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½Òªï¿½Ã»ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Ô´
 * Input          : None
 * Return         : None
 *******************************************************************************/
@@ -101,31 +101,31 @@ void LowPower_Halt_2( void )
     
     x32Kpw = R8_XT32K_TUNE;
     x32Mpw = R8_XT32M_TUNE;
-    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%¶î¶¨µçÁ÷
-    if(R16_RTC_CNT_32K>0x3fff){     // ³¬¹ý500ms
-        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEÇý¶¯µçÁ÷½µµÍµ½¶î¶¨µçÁ÷
+    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
+    if(R16_RTC_CNT_32K>0x3fff){     // ï¿½ï¿½ï¿½ï¿½500ms
+        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
     }    
     
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R8_SLP_POWER_CTRL |= RB_SLP_ROM_PWR_DN;			  // flashÍ£»ú
-    R8_BAT_DET_CTRL = 0;                              // ¹Ø±ÕµçÑ¹¼à¿Ø
+    R8_SLP_POWER_CTRL |= RB_SLP_ROM_PWR_DN;			  // flashÍ£ï¿½ï¿½
+    R8_BAT_DET_CTRL = 0;                              // ï¿½Ø±Õµï¿½Ñ¹ï¿½ï¿½ï¿½
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
-    R16_CLK_SYS_CFG = 5;		        // ½µÆµ HSI/5=6.4M
+    R16_CLK_SYS_CFG = 5;		        // ï¿½ï¿½Æµ HSI/5=6.4M
     R8_SAFE_ACCESS_SIG = 0;
 
     SCB -> SCR |= SCB_SCR_SLEEPDEEP_Msk;				//deep sleep
     __WFI();
     R8_SAFE_ACCESS_SIG = 0;
 
-    /* ¿ªÆôµçÑ¹¼à¿Ø */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ */
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CFG = 1;                     // 2.05V - 2.33V
 		R8_BAT_DET_CTRL = RB_BAT_DET_EN;
 		R8_SAFE_ACCESS_SIG = 0; 
-		__nop();	__nop();
+		asm("nop");	asm("nop");
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CTRL = RB_BAT_LOW_IE|RB_BAT_LOWER_IE|RB_BAT_DET_EN;  
@@ -134,14 +134,14 @@ void LowPower_Halt_2( void )
 
 /*******************************************************************************
 * Function Name  : LowPower_Sleep
-* Description    : µÍ¹¦ºÄ-SleepÄ£Ê½¡£
-                   ´ËµÍ¹¦ºÄÇÐµ½HSI/5Ê±ÖÓÔËÐÐ£¬»½ÐÑºóÐèÒªÓÃ»§×Ô¼ºÖØÐÂÑ¡ÔñÏµÍ³Ê±ÖÓÔ´
-                   ×¢Òâµ÷ÓÃ´Ëº¯Êý£¬DCDC¹¦ÄÜÇ¿ÖÆ¹Ø±Õ£¬»½ÐÑºó¿ÉÒÔÊÖ¶¯ÔÙ´Î´ò¿ª
+* Description    : ï¿½Í¹ï¿½ï¿½ï¿½-SleepÄ£Ê½ï¿½ï¿½
+                   ï¿½ËµÍ¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½HSI/5Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½Òªï¿½Ã»ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Ô´
+                   ×¢ï¿½ï¿½ï¿½ï¿½Ã´Ëºï¿½ï¿½ï¿½ï¿½ï¿½DCDCï¿½ï¿½ï¿½ï¿½Ç¿ï¿½Æ¹Ø±Õ£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½Ù´Î´ï¿½
 * Input          : rm:
-                    RB_PWR_RAM2K	-	×îºó2K SRAM ¹©µç
-                    RB_PWR_RAM14K	-	0x20004000 - 0x20007800 14K SRAM ¹©µç
-                    RB_PWR_EXTEND	-	USBºÍRF µ¥Ôª±£ÁôÇøÓò¹©µç
-                   NULL	-	ÒÔÉÏµ¥Ôª¶¼¶Ïµç
+                    RB_PWR_RAM2K	-	ï¿½ï¿½ï¿½2K SRAM ï¿½ï¿½ï¿½ï¿½
+                    RB_PWR_RAM14K	-	0x20004000 - 0x20007800 14K SRAM ï¿½ï¿½ï¿½ï¿½
+                    RB_PWR_EXTEND	-	USBï¿½ï¿½RF ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¹©µï¿½
+                   NULL	-	ï¿½ï¿½ï¿½Ïµï¿½Ôªï¿½ï¿½ï¿½Ïµï¿½
 * Return         : None
 *******************************************************************************/
 //__attribute__((section("NMICode")))
@@ -151,9 +151,9 @@ void LowPower_Sleep( UINT8 rm )
     
     x32Kpw = R8_XT32K_TUNE;
     x32Mpw = R8_XT32M_TUNE;
-    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%¶î¶¨µçÁ÷
-    if(R16_RTC_CNT_32K>0x3fff){     // ³¬¹ý500ms
-        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEÇý¶¯µçÁ÷½µµÍµ½¶î¶¨µçÁ÷
+    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
+    if(R16_RTC_CNT_32K>0x3fff){     // ï¿½ï¿½ï¿½ï¿½500ms
+        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
     } 
     
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
@@ -166,23 +166,23 @@ void LowPower_Sleep( UINT8 rm )
 
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R8_BAT_DET_CTRL = 0;                // ¹Ø±ÕµçÑ¹¼à¿Ø
+    R8_BAT_DET_CTRL = 0;                // ï¿½Ø±Õµï¿½Ñ¹ï¿½ï¿½ï¿½
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
-    R16_CLK_SYS_CFG = 5;		        // ½µÆµ HSI/5=6.4M  
+    R16_CLK_SYS_CFG = 5;		        // ï¿½ï¿½Æµ HSI/5=6.4M  
     R8_SAFE_ACCESS_SIG = 0;
 
 	SCB -> SCR |= SCB_SCR_SLEEPDEEP_Msk;				//deep sleep
     __WFI();
     R8_SAFE_ACCESS_SIG = 0;
 
-    /* ¿ªÆôµçÑ¹¼à¿Ø */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ */
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CFG = 1;                     // 2.05V - 2.33V
 		R8_BAT_DET_CTRL = RB_BAT_DET_EN;
 		R8_SAFE_ACCESS_SIG = 0; 
-		__nop();	__nop();
+		asm("nop");	asm("nop");
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CTRL = RB_BAT_LOW_IE|RB_BAT_LOWER_IE|RB_BAT_DET_EN;  
@@ -191,12 +191,12 @@ void LowPower_Sleep( UINT8 rm )
 
 /*******************************************************************************
 * Function Name  : LowPower_Shutdown
-* Description    : µÍ¹¦ºÄ-ShutdownÄ£Ê½¡£
-                   ´ËµÍ¹¦ºÄÇÐµ½HSI/5Ê±ÖÓÔËÐÐ£¬»½ÐÑºóÐèÒªÓÃ»§×Ô¼ºÖØÐÂÑ¡ÔñÏµÍ³Ê±ÖÓÔ´
-                   ×¢Òâµ÷ÓÃ´Ëº¯Êý£¬DCDC¹¦ÄÜÇ¿ÖÆ¹Ø±Õ£¬»½ÐÑºó¿ÉÒÔÊÖ¶¯ÔÙ´Î´ò¿ª
+* Description    : ï¿½Í¹ï¿½ï¿½ï¿½-ShutdownÄ£Ê½ï¿½ï¿½
+                   ï¿½ËµÍ¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½HSI/5Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½Òªï¿½Ã»ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½Ô´
+                   ×¢ï¿½ï¿½ï¿½ï¿½Ã´Ëºï¿½ï¿½ï¿½ï¿½ï¿½DCDCï¿½ï¿½ï¿½ï¿½Ç¿ï¿½Æ¹Ø±Õ£ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½Ù´Î´ï¿½
 * Input          : rm:
-                    RB_PWR_RAM2K	-	×îºó2K SRAM ¹©µç
-                   NULL	-	ÒÔÉÏµ¥Ôª¶¼¶Ïµç
+                    RB_PWR_RAM2K	-	ï¿½ï¿½ï¿½2K SRAM ï¿½ï¿½ï¿½ï¿½
+                   NULL	-	ï¿½ï¿½ï¿½Ïµï¿½Ôªï¿½ï¿½ï¿½Ïµï¿½
 * Return         : None
 *******************************************************************************/
 //__attribute__((section("NMICode")))
@@ -206,9 +206,9 @@ void LowPower_Shutdown( UINT8 rm )
     
     x32Kpw = R8_XT32K_TUNE;
     x32Mpw = R8_XT32M_TUNE;
-    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%¶î¶¨µçÁ÷
-    if(R16_RTC_CNT_32K>0x3fff){     // ³¬¹ý500ms
-        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEÇý¶¯µçÁ÷½µµÍµ½¶î¶¨µçÁ÷
+    x32Mpw = (x32Mpw&0xfc)|0x03;            // 150%ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
+    if(R16_RTC_CNT_32K>0x3fff){     // ï¿½ï¿½ï¿½ï¿½500ms
+        x32Kpw = (x32Kpw&0xfc)|0x01;        // LSEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½
     }
     
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
@@ -220,23 +220,23 @@ void LowPower_Shutdown( UINT8 rm )
 
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R8_BAT_DET_CTRL = 0;                // ¹Ø±ÕµçÑ¹¼à¿Ø
+    R8_BAT_DET_CTRL = 0;                // ï¿½Ø±Õµï¿½Ñ¹ï¿½ï¿½ï¿½
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
-    R16_CLK_SYS_CFG = 5;		        // ½µÆµ HSI/5=6.4M    
+    R16_CLK_SYS_CFG = 5;		        // ï¿½ï¿½Æµ HSI/5=6.4M    
     R8_SAFE_ACCESS_SIG = 0;    
 
 	SCB -> SCR |= SCB_SCR_SLEEPDEEP_Msk;				//deep sleep
     __WFI();
     R8_SAFE_ACCESS_SIG = 0;
 
-    /* ¿ªÆôµçÑ¹¼à¿Ø */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ */
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CFG = 1;                     // 2.05V - 2.33V
 		R8_BAT_DET_CTRL = RB_BAT_DET_EN;
 		R8_SAFE_ACCESS_SIG = 0; 
-		__nop();	__nop();
+		asm("nop");	asm("nop");
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CTRL = RB_BAT_LOW_IE|RB_BAT_LOWER_IE|RB_BAT_DET_EN;  
