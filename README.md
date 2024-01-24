@@ -1,6 +1,6 @@
-# ch579m_ledBlink_gcc
+# ch579m_serial_gcc
 
-Led blink example with YLCH579M eval board.
+Serial connection example with YLCH579M eval board.
 
 Compile:
 ```
