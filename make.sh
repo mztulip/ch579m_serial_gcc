@@ -66,7 +66,8 @@ file="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_uart3.c $INLCUDES -o build/CH57x_uart
 echo $file
 $file
 
-linker="$TOOLCHAIN_GCC build/*.o -nostartfiles -T$LINKER_SCRIPT -Wl,--gc-sections -mcpu=cortex-m0 -o output.elf  -Xlinker -Map=output.map"
+LINKER_FLAGS="-nostartfiles -Wl,--gc-sections -mcpu=cortex-m0 --specs=nano.specs"
+linker="$TOOLCHAIN_GCC build/*.o -T$LINKER_SCRIPT -o output.elf  -Xlinker -Map=output.map $LINKER_FLAGS"
 echo $linker
 $linker
 
